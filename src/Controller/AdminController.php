@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AdminController extends AbstractController
 {
-    // Rota para a página administrativa
+    // Rota para página administrativa
     #[Route('/Administrador', name: 'app_admin_upper')]
     #[Route('/admin', name: 'app_admin')]
     public function index(): Response
@@ -22,7 +22,7 @@ class AdminController extends AbstractController
     }
 
     // Rota para listar clientes não verificados
-    #[Route('/Administrador/Autorizar', name: 'admin_unverified_customers')]
+    #[Route('/Administrador/Autorizar', name: 'app_Admin')]
     public function ListarCustomers(UserRepository $userRepository): Response
     {
         // Buscar usuários que atendem aos critérios
@@ -35,7 +35,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-    // Rota para aceitar clientes
     #[Route('/Administrador/AceitarClientes', name: 'AceitarCliente', methods: ['POST'])]
     public function AceitarClientes(Request $request, UserRepository $userRepository, EntityManagerInterface $em): RedirectResponse
     {
@@ -50,7 +49,7 @@ class AdminController extends AbstractController
 
                 if ($user) {
                     // Marcar o cliente como verificado
-                    $user->getCustomer()->setIsChecked(true); // Alterar o campo conforme a sua necessidade
+                    $user->getCustomer()->setIsChecked(true); // Altere para o campo correto
                     $em->persist($user);
                 }
             }
@@ -64,7 +63,6 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('app_admin'); // Redireciona de volta para a página do administrador
     }
 
-    // Rota para recusar clientes
     #[Route('/Administrador/RecusarCliente', name: 'RecusarCliente', methods: ['POST'])]
     public function RecusarClientes(Request $request, UserRepository $userRepository, EntityManagerInterface $em): RedirectResponse
     {

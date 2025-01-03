@@ -1,5 +1,7 @@
-{% extends 'base.html.twig'  %}
+{% extends 'base.html.twig' %}
+
 {% block title %} {{ Titulo }} {% endblock %}
+
 {% block stylesheets %}
 <style>
     body {
@@ -40,7 +42,7 @@
         margin-bottom: 15px; 
         border-radius: 5px; 
     }
-  
+
     .adm {
         display: flex;
         justify-content: space-evenly;
@@ -51,9 +53,6 @@
         border-radius: 5px; 
     }
 
-
-
-        
     .botao_log_in {
         background-color: #fff;
         padding: 10px;
@@ -63,31 +62,34 @@
         margin-bottom: 10px; 
         border: none; 
     }
-    
 
     .botao_log_in:hover {
         transform: scale(0.9);
         transition: 0.2s;
     }
-
 </style>
 {% endblock %}
 
 {% block body %}
+<div class="log_in">
+    <img src="{{ asset('imagens/Minions.png') }}" alt="no image :\">
 
-<div class="log_in" >
-<img src="{{ asset('imagens/Minions.png') }}" alt="no image :\">
- {{ form_start(form) }}
-            {{ form_row(form.email, {'attr': {'class': 'input-field'}}) }}
-            {{ form_row(form.nome, {'attr': {'class': 'input-field'}}) }}
-            {{ form_row(form.password, {'attr': {'class': 'input-field'}}) }}
-        
-        <div>
+    {{ form_start(form) }}
+        {{ form_row(form.email, {'attr': {'class': 'input-field'}}) }}
+        {{ form_row(form.nome, {'attr': {'class': 'input-field'}}) }}
+        {{ form_row(form.password, {'attr': {'class': 'input-field'}}) }}
+
+        <div class="adm">
+            {{ form_label(form.isAdmin) }}
+            <div>
+                {{ form_widget(form.isAdmin, {'attr': {'class': 'input-field'}}) }}
+            </div>
+        </div>
         
         <div>
             {{ form_widget(form.registrar, {'attr': {'class': 'botao_log_in'}}) }}
         </div>
-        
-        {{ form_end(form) }}
-    </div>
+
+    {{ form_end(form) }}
+</div>
 {% endblock %}

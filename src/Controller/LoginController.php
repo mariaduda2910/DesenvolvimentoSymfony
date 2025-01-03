@@ -30,19 +30,17 @@ class LoginController extends AbstractController
             $user = $em->getRepository(User::class)->findOneBy(['email' => $email]);
 
             if ($user && $passwordEncoder->isPasswordValid($user, $password)) {
-                // Verifica se o usuário é administrador
+                
                 if ($user->getIsAdmin()) {
                     return $this->redirectToRoute('app_Admin');
                 }
 
-                // Verifica se o usuário é um cliente autorizado
                 $customer = $em->getRepository(Customer::class)->findOneBy(['user' => $user->getId()]);
 
-                if ($customer && $customer->getIsChecked()) { // Supõe que existe um método getIsChecked() na entidade Customer
+                if ($customer && $customer->getIsChecked()) { 
                     return $this->redirectToRoute('app_Customer');
                 }
 
-                // Caso o cliente não esteja autorizado
                 $this->addFlash(
                     'error',
                     'Tente se registrar ou entre em contato com algum de nossos colaboradores.'

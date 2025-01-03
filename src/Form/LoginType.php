@@ -9,14 +9,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType; // Importando o ChoiceType
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 class LoginType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('email', TextType::class, ['label' => 'Email'])
-            ->add('password', TextType::class, ['label' => 'Password'])
+            ->add('password', PasswordType::class, ['label' => 'Password'])
             ->add('entrar', SubmitType::class);
             /*->add('registrar', SubmitType::class);*/
     }

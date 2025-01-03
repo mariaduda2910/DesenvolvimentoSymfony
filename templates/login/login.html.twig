@@ -84,5 +84,10 @@
         <a href="{{ path('app_registro') }}" >Registrar</a>
         </div>
         {{ form_end(form) }}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
