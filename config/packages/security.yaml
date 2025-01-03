@@ -1,0 +1,44 @@
+security:
+    # Configuração de hashing de senhas
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        App\Entity\User: 'auto'
+
+    # Configuração dos provedores de usuários
+    providers:
+        users_in_memory: { memory: null }
+        users_in_database:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    # Configuração dos firewalls
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            lazy: true
+            provider: users_in_database
+            stateless: false
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path: logout
+
+    # Controle de acesso
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/customer, roles: ROLE_CUSTOMER }
+
+# Configuração para ambiente de testes
+when@test:
+    security:
+        password_hashers:
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: auto
+                cost: 4 # Menor valor possível para bcrypt
+                time_cost: 3 # Menor valor possível para argon
+                memory_cost: 10 # Menor valor possível para argon
